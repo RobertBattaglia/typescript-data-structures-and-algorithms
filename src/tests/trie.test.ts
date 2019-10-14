@@ -16,12 +16,43 @@ test('should add a word and be able to retrieve subset of word', () => {
 });
 
 test('should add 2 words and first should still be retrievable', () => {
-  trie.addWord('apple');
-  trie.addWord('banana');
-  expect(trie.hasWord('apple')).toBeTruthy();
+  trie.addWord('apps');
+  trie.addWord('band');
+  //   ''
+  //  /  \
+  // a    b
+  // |    |
+  // p    a
+  // |    |
+  // p    n
+  // |    |
+  // s    d
+  expect(trie.hasWord('apps')).toBeTruthy();
 });
 
 test('should not retrieve word not added', () => {
   trie.addWord('apple');
   expect(trie.hasWord('banana')).toBeFalsy();
+});
+
+test('should not overwrite branch when adding new word', () => {
+  trie.addWord('apps');
+  // a
+  // |
+  // p
+  // |
+  // p
+  // |
+  // s
+  trie.addWord('apple');
+  //   a
+  //   |
+  //   p
+  //   |
+  //   p
+  //  / \
+  // s   l
+  //      \
+  //       e
+  expect(trie.hasWord('apps')).toBeTruthy();
 });
